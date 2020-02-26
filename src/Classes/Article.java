@@ -1,10 +1,12 @@
+package Classes;
+
 public class Article {
     long codeBarre;
     String reference;
     String libelle;
     int prixHT;
     int tauxTVA;
-    public static int[] tableauTVA = { 550, 2000 };
+    public final static int[] tableauTVA = { 550, 2000 };
 
     public long getCodeBarre() {
         return codeBarre;
@@ -56,6 +58,6 @@ public class Article {
         this.reference = reference;
         this.libelle = libelle;
         this.prixHT = prixHT;
-        this.tauxTVA = tauxTVA;
+        this.tauxTVA = Article.tableauTVA[tauxTVA];
     }
 }
