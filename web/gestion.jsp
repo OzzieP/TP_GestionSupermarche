@@ -20,50 +20,49 @@
     <h2>Ajouter un article</h2>
     <form method="POST" action="GestionServlet">
         <label for="addCodeBarre">Code barre : </label>
-        <input id="addCodeBarre" type="text">
+        <input id="addCodeBarre" type="number" name="addCodeBarre">
 
         <label for="addReference">Référence : </label>
-        <input id="addReference" type="text">
+        <input id="addReference" type="text" name="addReference">
 
         <label for="addLibelle">Libellé : </label>
-        <input id="addLibelle" type="text">
+        <input id="addLibelle" type="text" name="addLibelle">
 
         <label for="addPrixHT">Prix HT : </label>
-        <input id="addPrixHT" type="number">
+        <input id="addPrixHT" type="number" name="addPrixHT">
 
         <label for="addTauxTVA">Taux TVA : </label>
-        <select id="addTauxTVA">
+        <select id="addTauxTVA" name="addTauxTVA">
             <option value="0">5,5 %</option>
             <option value="1">20 %</option>
         </select>
 
-        <input type="submit" name="btn" value="add">
+        <input type="submit" name="btn" value="Ajouter">
     </form>
 </div>
 
-<% Article article = (Article) application.getAttribute("selectedArticle"); %>
 <div>
     <h2>Modifier un article</h2>
     <form method="POST" action="GestionServlet">
-        <label for="updateCodeBarre">Référence : </label>
-        <input disabled id="updateCodeBarre" type="text" value="<% article.getCodeBarre(); %>">
+        <label for="updateCodeBarre">Code barre : </label>
+        <input disabled id="updateCodeBarre" type="text" name="updateCodeBarre" value="${applicationScope['selectedArticle'].codeBarre}">
 
         <label for="updateReference">Référence : </label>
-        <input id="updateReference" type="text" value="<% article.getReference(); %>">
+        <input id="updateReference" type="text" name="updateReference" value="${applicationScope['selectedArticle'].reference}">
 
         <label for="updateLibelle">Libellé : </label>
-        <input id="updateLibelle" type="text" value="<% article.getLibelle(); %>">
+        <input id="updateLibelle" type="text" name="updateLibelle" value="${applicationScope['selectedArticle'].libelle}">
 
         <label for="updatePrixHT">Prix HT : </label>
-        <input id="updatePrixHT" type="number" value="<% article.getPrixHT(); %>">
+        <input id="updatePrixHT" type="number" name="updatePrixHT" value="${applicationScope['selectedArticle'].prixHT}">
 
         <label for="updateTauxTVA">Taux TVA : </label>
-        <select id="updateTauxTVA">
+        <select id="updateTauxTVA" name="updateTauxTVA">
             <option value="0">5,5 %</option>
             <option value="1">20 %</option>
         </select>
 
-        <input type="submit" name="btn" value="update">
+        <input type="submit" name="btn" value="Modifier">
     </form>
 </div>
 </body>

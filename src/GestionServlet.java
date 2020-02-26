@@ -15,7 +15,7 @@ public class GestionServlet extends HttpServlet {
         String btn = request.getParameter("btn");
         Article article = null;
 
-        if (btn.equals("add")) {
+        if (btn.equals("Ajouter")) {
             article = new Article(
                     Long.parseLong(request.getParameter("addCodeBarre")),
                     request.getParameter("addReference"),
@@ -23,16 +23,15 @@ public class GestionServlet extends HttpServlet {
                     Integer.parseInt(request.getParameter("addPrixHT")),
                     Integer.parseInt(request.getParameter("addTauxTVA"))
             );
-        } else if (btn.equals("update")) {
+        } else if (btn.equals("Modifier")) {
+            Article selectedArticle = (Article)this.getServletContext().getAttribute("selectedArticle");
             article = new Article(
-                    Long.parseLong(request.getParameter("updateCodeBarre")),
+                    selectedArticle.getCodeBarre(),
                     request.getParameter("updateReference"),
                     request.getParameter("updateLibelle"),
                     Integer.parseInt(request.getParameter("updatePrixHT")),
                     Integer.parseInt(request.getParameter("updateTauxTVA"))
             );
-
-            hm.remove(article.getCodeBarre());
         }
 
         if (article != null) {
@@ -42,15 +41,21 @@ public class GestionServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
-        long codeBarre = Long.parseLong(request.getParameter("codeBarre"));
         String btn = request.getParameter("btn");
 
-        Article selectedArticle = (Article) hm.get(codeBarre);
-        this.getServletContext().setAttribute("selectedArticle", selectedArticle);
+        if (btn == null) {
+            response.sendRedirect(request.getContextPath() + "/gestion.jsp");
+        } else if (btn.equals("Supprimer") || btn.equals("Modifier")) {
+            long codeBarre = Long.parseLong(request.getParameter("codeBarre"));
+            Article selectedArticle = hm.get(codeBarre);
+            this.getServletContext().setAttribute("selectedArticle", selectedArticle);
 
-        if (btn.equals("Supprimer")) {
-            hm.remove(codeBarre);
-            response.sendRedirect(request.getContextPath() + "/AccueilServlet");
+            if (btn.equals("Supprimer")) {
+                hm.remove(codeBarre);
+                response.sendRedirect(request.getContextPath() + "/AccueilServlet");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/gestion.jsp");
+            }
         }
     }
 }

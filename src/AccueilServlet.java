@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/AccueilServlet")
+@WebServlet(value = "/AccueilServlet", loadOnStartup = 1)
 public class AccueilServlet extends javax.servlet.http.HttpServlet {
 
     @Override

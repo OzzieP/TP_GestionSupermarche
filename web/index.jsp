@@ -1,4 +1,4 @@
-<%@ page import="java.util.Map" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="Classes.Article" %>
 
@@ -13,54 +13,55 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Gestion du supermarché </title>
+    <title>Gestion du supermarché </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <H1>Liste des articles</H1>
 
 <body>
-<table>
-<%
 
-   HashMap hm  = (HashMap) application.getAttribute("articles");
-
-  for (Object value : hm.values())
-  {
-      Article article = (Article) value; %>
-    <td>
-
-        <tr> <br> Code Barre   : "  <%=  article.getCodeBarre() %></tr>
-        <tr>  </tr>
-        <tr> &nbsp;  Article  : "  <%=  article.getLibelle() %></tr>
-
-    </td>
-
-    <td>
+<a href="<c:url value="/GestionServlet"/>" class="btn btn-success" role="button">Ajouter un article</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Code barre</th>
+        <th scope="col">Libellé</th>
+        <th scope="col">Prix HT</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${applicationScope['articles'].values()}" var="article">
         <tr>
-            <div class="btn btn-info">
-            <c:url value="GestionServlet" var="url">
-                <c:param name="codeBarre" value="${article.getCodeBarre()}"/>
-                <c:param name="btn" value="Modifier"/>
-            </c:url>
-            <a &nbsp; href="${url}">Modifier</a>
-        </div>
+            <td><c:out value="${article.codeBarre}"/></td>
+            <td><c:out value="${article.libelle}"/></td>
+            <td><c:out value="${article.prixHT}"/></td>
+            <td>
+                <div class="btn btn-info">
+                    <c:url value="GestionServlet" var="url">
+                        <c:param name="codeBarre" value="${article.codeBarre}"/>
+                        <c:param name="btn" value="Modifier"/>
+                    </c:url>
+                    <a href="${url}">Modifier</a>
+                </div>
+            </td>
+            <td>
+                <div class="btn btn-danger">
+                    <c:url value="GestionServlet" var="url">
+                        <c:param name="codeBarre" value="${article.codeBarre}"/>
+                        <c:param name="btn" value="Supprimer"/>
+                    </c:url>
+                    <a href="${url}">Supprimer</a>
+                </div>
+            </td>
         </tr>
-
-            <tr>
-            <div class="btn btn-danger">
-                <c:url value="GestionServlet" var="url">
-                    <c:param name="codeBarre" value="${article.getCodeBarre()}"/>
-                    <c:param name="btn" value="Supprimer"/>
-                </c:url>
-                <a  &nbsp; href="${url}">Supprimer</a>
-            </div>
-            </tr>
-
-    </td>
-
- <% } %>
+    </c:forEach>
+    </tbody>
 </table>
+
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
