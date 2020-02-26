@@ -58,6 +58,6 @@ public class Article {
         this.reference = reference;
         this.libelle = libelle;
         this.prixHT = prixHT;
-        this.tauxTVA = Article.tableauTVA[tauxTVA];
+        this.tauxTVA = Article.tableauTVA[tauxTVA] / 100;
     }
 }

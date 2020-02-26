@@ -1,21 +1,21 @@
 import Classes.Article;
+import Classes.Utilisateur;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-@WebServlet(value = "/AccueilServlet", loadOnStartup = 1)
+@WebServlet(value = "/AccueilServlet", name = "Accueil", loadOnStartup = 1)
 public class AccueilServlet extends javax.servlet.http.HttpServlet {
+    //public static ArrayList<Article> panier = new ArrayList<>();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-
-        ServletContext application = getServletConfig().getServletContext();
 
         HashMap<Long, Article> hm = new HashMap<Long, Article>();
 
@@ -31,19 +31,42 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
         hm.put(1011L, a4);
         hm.put(1213L, a5);
 
-        application.setAttribute("articles", hm);
-
-
-
-        //for(Long key: hm.keySet()) { hm.get(key).codeBarre}
+        this.getServletContext().setAttribute("articles", hm);
     }
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        HttpSession session = request.getSession(false);
 
+        if (session != null) {
+            HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
+            long codeBarre = Long.parseLong(request.getParameter("addArticlePanier"));
+            Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
+
+            Article selectedArticle =  hm.get(codeBarre);
+            if (selectedArticle != null) {
+                utilisateur.getPanier().add(selectedArticle);
+            }
+        }
+
+
+//        HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
+//        long codeBarre = Long.parseLong(request.getParameter("addArticlePanier"));
+//
+//        Article selectedArticle =  hm.get(codeBarre);
+//        if (selectedArticle != null) {
+//            this.panier.add(selectedArticle);
+//        }
+
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        HttpSession session = request.getSession(true);
 
-        response.sendRedirect(request.getContextPath()+"/index.jsp");
+        if (session != null && session.getAttribute("utilisateur") == null) {
+            session.setAttribute("utilisateur", new Utilisateur("Utilisateur"));
+        }
+
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

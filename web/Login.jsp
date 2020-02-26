@@ -1,25 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: matth
-  Date: 26/02/2020
-  Time: 14:10
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Connexion</title>
 </head>
 <body>
+<h1>Connexion</h1>
 <form action="LoginServlet" method="POST">
-    <h1>Connexion</h1>
+    <label for="pseudo">Pseudo : </label>
+    <input id="pseudo" type="text" placeholder="Pseudo" name="pseudo" required>
 
-<div>
-    <label><b>Nom d'utilisateur</b></label>
-    <input type="text" placeholder="Entrer le nom d'utilisateur" name="username" required>
-</div>
-
-    < <input type="submit" id='' value='Liste des articles ' >
+    <input type="submit" name="btn" value="Se connecter">
 </form>
 
 <a href="<%=request.getContextPath()+response.encodeURL("/AccueilServlet")%>">Lien vers Ticket de caisse </a>

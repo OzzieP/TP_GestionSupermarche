@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
-@WebServlet(value = "/GestionServlet", name = "GestionServlet")
+@WebServlet(value = "/GestionServlet", name = "Gestion")
 public class GestionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
@@ -52,9 +52,11 @@ public class GestionServlet extends HttpServlet {
 
             if (btn.equals("Supprimer")) {
                 hm.remove(codeBarre);
-                response.sendRedirect(request.getContextPath() + "/AccueilServlet");
+                this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
+//                response.sendRedirect(request.getContextPath() + "/AccueilServlet");
             } else {
-                response.sendRedirect(request.getContextPath() + "/gestion.jsp");
+                this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
+//                response.sendRedirect(request.getContextPath() + "/gestion.jsp");
             }
         }
     }
