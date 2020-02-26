@@ -19,7 +19,7 @@
     <input type="text" placeholder="Entrer le nom d'utilisateur" name="username" required>
 </div>
 
-    <a href="<%=request.getContextPath()+response.encodeURL("/AccueilServlet")%>"> <input type="submit" id='' value='Liste des articles ' ></a>
+    < <input type="submit" id='' value='Liste des articles ' >
 </form>
 
 <a href="<%=request.getContextPath()+response.encodeURL("/AccueilServlet")%>">Lien vers Ticket de caisse </a>

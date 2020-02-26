@@ -22,6 +22,7 @@
 <body>
 
 <a href="<c:url value="/GestionServlet"/>" class="btn btn-success" role="button">Ajouter un article</a>
+<a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-success" role="button">Gestion des articles</a>
 <table class="table table-striped">
     <thead>
     <tr>
