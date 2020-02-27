@@ -20,7 +20,7 @@
         <label for="addLibelle">Libellé : </label>
         <input id="addLibelle" type="text" name="addLibelle">
 
-        <label for="addPrixHT">Prix HT : </label>
+        <label for="addPrixHT">Prix HT (en centimes) : </label>
         <input id="addPrixHT" type="number" name="addPrixHT">
 
         <label for="addTauxTVA">Taux TVA : </label>
@@ -45,7 +45,7 @@
         <label for="updateLibelle">Libellé : </label>
         <input id="updateLibelle" type="text" name="updateLibelle" value="${applicationScope['selectedArticle'].libelle}">
 
-        <label for="updatePrixHT">Prix HT : </label>
+        <label for="updatePrixHT">Prix HT (en centimes) : </label>
         <input id="updatePrixHT" type="number" name="updatePrixHT" value="${applicationScope['selectedArticle'].prixHT}">
 
         <label for="updateTauxTVA">Taux TVA : </label>

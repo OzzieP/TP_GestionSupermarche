@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix= "f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -18,7 +19,6 @@
             <a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-info" role="button">Gestion des articles</a>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-12">
             <div>
@@ -31,7 +31,7 @@
             </div>
 
             <table class="table table-striped">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                         <th scope="col">Code barre</th>
                         <th scope="col">Libellé</th>
@@ -47,8 +47,8 @@
                         <tr>
                             <td><c:out value="${article.codeBarre}"/></td>
                             <td><c:out value="${article.libelle}"/></td>
-                            <td><c:out value="${article.prixHT}"/></td>
-                            <td><c:out value="${article.tauxTVA}"/></td>
+                            <td><c:out value="${article.prixHT / 100} €"/></td>
+                            <td><c:out value="${article.tauxTVA} %"/></td>
                             <td><c:out value="${article.reference}"/></td>
                             <td>
                                 <c:url value="GestionServlet" var="url">
@@ -66,6 +66,43 @@
                             </td>
                         </tr>
                     </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Votre ticket de caisse</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Libellé</th>
+                    <th scope="col">Prix TTC</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${applicationScope['panier']}" var="article">
+                    <c:set var="prixTTC" value="${(article.prixHT / 100) + ((article.prixHT / 100) * (article.tauxTVA / 100))}"/>
+                    <tr>
+                        <th scope="row"><c:out value="${article.codeBarre}"/></th>
+                        <td><c:out value="${article.libelle}"/></td>
+                        <td><f:formatNumber value="${prixTTC}" type="currency" currencySymbol="€"/></td>
+                    </tr>
+                </c:forEach>
+                <tr>
+                    <th scope="row">Total TTC</th>
+                    <td colspan="2"><f:formatNumber value="${totalTTC}" type="currency" currencySymbol="€"/></td>
+                </tr>
+                <tr>
+                    <th scope="row">Total TVA</th>
+                    <td colspan="2"><f:formatNumber value="${totalTVA}" type="currency" currencySymbol="€"/></td>
+                </tr>
                 </tbody>
             </table>
         </div>
