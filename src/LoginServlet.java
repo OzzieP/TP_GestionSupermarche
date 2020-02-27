@@ -1,4 +1,3 @@
-import Classes.Article;
 import Classes.Utilisateur;
 
 import javax.servlet.ServletException;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 
 @WebServlet(value = "/LoginServlet", name = "Login")
 public class LoginServlet extends HttpServlet {

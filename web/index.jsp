@@ -5,8 +5,6 @@
 <html>
 <head>
     <title>Gestion du supermarché</title>
-    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
-    <%--          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -108,6 +106,7 @@
                     <tr>
                         <th scope="col">Code barre</th>
                         <th scope="col">Libellé</th>
+                        <th scope="col"></th>
                         <th scope="col">Prix TTC</th>
                         <th scope="col">Montant TVA</th>
                     </tr>
@@ -122,18 +121,25 @@
                             <td><c:out value="${article.libelle}"/></td>
                             <td><f:formatNumber value="${prixTTC}" type="currency" currencySymbol="€"/></td>
                             <td><f:formatNumber value="${montantTVA}" type="currency" currencySymbol="€"/></td>
+                            <td>
+                                <c:url value="AccueilServlet" var="url">
+                                    <c:param name="codeBarre" value="${article.codeBarre}"/>
+                                    <c:param name="btn" value="Retirer"/>
+                                </c:url>
+                                <a href="${url}" class="btn btn-danger" role="button">Retirer</a>
+                            </td>
                         </tr>
                     </c:forEach>
                     <tr class="table-info">
                         <td></td>
                         <th scope="row">Total TTC</th>
-                        <td colspan="2"><f:formatNumber value="${applicationScope['totalTTC']}" type="currency"
+                        <td colspan="3"><f:formatNumber value="${applicationScope['totalTTC']}" type="currency"
                                                         currencySymbol="€"/></td>
                     </tr>
                     <tr class="table-warning">
                         <td></td>
                         <th scope="row">Total TVA</th>
-                        <td colspan="2"><f:formatNumber value="${applicationScope['totalTVA']}" type="currency"
+                        <td colspan="3"><f:formatNumber value="${applicationScope['totalTVA']}" type="currency"
                                                         currencySymbol="€"/></td>
                     </tr>
                     </tbody>
@@ -143,9 +149,6 @@
     </c:if>
 </div>
 
-<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"--%>
-<%--        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"--%>
-<%--        crossorigin="anonymous"></script>--%>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>

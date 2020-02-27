@@ -1,10 +1,8 @@
 import Classes.Article;
-import Classes.Utilisateur;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,20 +33,35 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
         ArrayList<Article> panier = (ArrayList<Article>) this.getServletContext().getAttribute("panier");
-
         String code = request.getParameter("addArticlePanier");
 
-        if (code != null || !code.isEmpty() || !code.isBlank()) {
-            long codeBarre = Long.parseLong(request.getParameter("addArticlePanier"));
+        AjouterArticleAuPanier(panier, code);
+        CalculerTotaux(panier);
 
-            Article selectedArticle =  hm.get(codeBarre);
-            if (selectedArticle != null) {
-                panier.add(selectedArticle);
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
+    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+        ArrayList<Article> panier = (ArrayList<Article>) this.getServletContext().getAttribute("panier");
+        String codeBarre = request.getParameter("codeBarre");
+        String btn = request.getParameter("btn");
+
+        if (btn.equals("Retirer")) {
+            for (Article article : panier) {
+                if (article.getCodeBarre() == Long.parseLong(codeBarre)) {
+                    panier.remove(article);
+                    break;
+                }
             }
         }
 
+        CalculerTotaux(panier);
+
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
+    private void CalculerTotaux(ArrayList<Article> panier) {
         float totalTTC = 0f;
         float totalTVA = 0f;
 
@@ -62,10 +75,18 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
 
         this.getServletContext().setAttribute("totalTTC", totalTTC);
         this.getServletContext().setAttribute("totalTVA", totalTVA);
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
-    protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    private void AjouterArticleAuPanier(ArrayList<Article> panier, String code) {
+        HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
+
+        if (code != null || !code.isEmpty() || !code.isBlank()) {
+            long codeBarre = Long.parseLong(code);
+
+            Article selectedArticle =  hm.get(codeBarre);
+            if (selectedArticle != null) {
+                panier.add(selectedArticle);
+            }
+        }
     }
 }

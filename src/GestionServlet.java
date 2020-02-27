@@ -24,7 +24,6 @@ public class GestionServlet extends HttpServlet {
                     Integer.parseInt(request.getParameter("addTauxTVA"))
             );
         } else if (btn.equals("Modifier")) {
-//            Article selectedArticle = (Article)this.getServletContext().getAttribute("selectedArticle");
             long codeBarre = Long.parseLong(request.getParameter("updateCodeBarre"));
             article = new Article(
                     codeBarre,
@@ -43,27 +42,26 @@ public class GestionServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
         String btn = request.getParameter("btn");
 
         if (btn.equals("Ajouter")) {
             request.setAttribute("btn", btn);
             this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
-        } else if (btn.equals("Supprimer") || btn.equals("Modifier")) {
+        } else if (btn.equals("Supprimer")) {
             long codeBarre = Long.parseLong(request.getParameter("codeBarre"));
-            Article selectedArticle = hm.get(codeBarre);
-            request.setAttribute("btn", btn);
-            request.setAttribute("selectedArticle", selectedArticle);
-
-            if (btn.equals("Supprimer")) {
-                hm.remove(codeBarre);
-                this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
-            } else {
-                this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
-            }
+            SupprimerArticle(codeBarre, btn, request);
+            this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
+        } else {
+            this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
         }
-//        else if (btn.equals("Ajouter")) {
-//            this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
-//        }
+    }
+
+    private void SupprimerArticle(long codeBarre, String btn, HttpServletRequest request) {
+        HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
+        Article selectedArticle = hm.get(codeBarre);
+
+        request.setAttribute("btn", btn);
+        request.setAttribute("selectedArticle", selectedArticle);
+        hm.remove(codeBarre);
     }
 }

@@ -1,7 +1,5 @@
 package Classes;
 
-import java.util.ArrayList;
-
 public class Utilisateur {
     String pseudo;
     boolean isAdmin;
