@@ -31,11 +31,11 @@
     <div class="row">
         <div class="col-md-12">
             <div>
-                <form method="POST" action="AccueilServlet">
+                <form method="POST" action="AccueilServlet" class="form-inline">
                     <label for="addArticlePanier">Code barre : </label>
-                    <input type="number" id="addArticlePanier" name="addArticlePanier">
+                    <input  class="form-control" type="number" id="addArticlePanier" name="addArticlePanier">
 
-                    <input type="submit" name="btn" value="Ajouter au panier">
+                    <input  class="btn btn-primary "type="submit" name="btn" value="Ajouter au panier">
                 </form>
             </div>
 
