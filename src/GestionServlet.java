@@ -24,9 +24,10 @@ public class GestionServlet extends HttpServlet {
                     Integer.parseInt(request.getParameter("addTauxTVA"))
             );
         } else if (btn.equals("Modifier")) {
-            Article selectedArticle = (Article)this.getServletContext().getAttribute("selectedArticle");
+//            Article selectedArticle = (Article)this.getServletContext().getAttribute("selectedArticle");
+            long codeBarre = Long.parseLong(request.getParameter("updateCodeBarre"));
             article = new Article(
-                    selectedArticle.getCodeBarre(),
+                    codeBarre,
                     request.getParameter("updateReference"),
                     request.getParameter("updateLibelle"),
                     Integer.parseInt(request.getParameter("updatePrixHT")),
@@ -38,19 +39,21 @@ public class GestionServlet extends HttpServlet {
             hm.put(article.getCodeBarre(), article);
         }
 
-        this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
         String btn = request.getParameter("btn");
 
-        if (btn == null) {
-            response.sendRedirect(request.getContextPath() + "/gestion.jsp");
+        if (btn.equals("Ajouter")) {
+            request.setAttribute("btn", btn);
+            this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
         } else if (btn.equals("Supprimer") || btn.equals("Modifier")) {
             long codeBarre = Long.parseLong(request.getParameter("codeBarre"));
             Article selectedArticle = hm.get(codeBarre);
-            this.getServletContext().setAttribute("selectedArticle", selectedArticle);
+            request.setAttribute("btn", btn);
+            request.setAttribute("selectedArticle", selectedArticle);
 
             if (btn.equals("Supprimer")) {
                 hm.remove(codeBarre);
@@ -59,5 +62,8 @@ public class GestionServlet extends HttpServlet {
                 this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
             }
         }
+//        else if (btn.equals("Ajouter")) {
+//            this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
+//        }
     }
 }

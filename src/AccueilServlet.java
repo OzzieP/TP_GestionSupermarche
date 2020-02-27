@@ -38,7 +38,9 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
         HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
         ArrayList<Article> panier = (ArrayList<Article>) this.getServletContext().getAttribute("panier");
 
-        if (request.getParameter("addArticlePanier") != null) {
+        String code = request.getParameter("addArticlePanier");
+
+        if (code != null || !code.isEmpty() || !code.isBlank()) {
             long codeBarre = Long.parseLong(request.getParameter("addArticlePanier"));
 
             Article selectedArticle =  hm.get(codeBarre);

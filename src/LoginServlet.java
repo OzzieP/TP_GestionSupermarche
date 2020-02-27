@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
                 if (session != null && session.getAttribute("admin") == null) {
                     session.setAttribute("admin", new Utilisateur("Administrateur", true));
-                    this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
+                    this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
                 }
             } else {
                 this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
