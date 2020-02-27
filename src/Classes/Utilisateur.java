@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Utilisateur {
     String pseudo;
     ArrayList<Article> panier;
+    boolean isAdmin;
 
     public String getPseudo() {
         return pseudo;
@@ -22,8 +23,17 @@ public class Utilisateur {
         this.panier = panier;
     }
 
-    public Utilisateur(String pseudo) {
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public Utilisateur(String pseudo, boolean isAdmin) {
         this.pseudo = pseudo;
+        this.isAdmin = isAdmin;
         this.panier = new ArrayList<>();
     }
 }

@@ -35,23 +35,6 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-//        HttpSession session = request.getSession(false);
-
-//        if (session != null) {
-//            HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
-//            Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur");
-//
-//            if (request.getParameter("addArticlePanier") != null)
-//            {
-//                long codeBarre = Long.parseLong(request.getParameter("addArticlePanier"));
-//                Article selectedArticle =  hm.get(codeBarre);
-//
-//                if (selectedArticle != null) {
-//                    utilisateur.getPanier().add(selectedArticle);
-//                }
-//            }
-//        }
-
         HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
         ArrayList<Article> panier = (ArrayList<Article>) this.getServletContext().getAttribute("panier");
 
@@ -82,12 +65,6 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-//        HttpSession session = request.getSession(true);
-//
-//        if (session != null && session.getAttribute("utilisateur") == null) {
-//            session.setAttribute("utilisateur", new Utilisateur("Utilisateur"));
-//        }
-
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

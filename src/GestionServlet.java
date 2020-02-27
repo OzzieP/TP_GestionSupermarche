@@ -53,10 +53,8 @@ public class GestionServlet extends HttpServlet {
             if (btn.equals("Supprimer")) {
                 hm.remove(codeBarre);
                 this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
-//                response.sendRedirect(request.getContextPath() + "/AccueilServlet");
             } else {
                 this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
-//                response.sendRedirect(request.getContextPath() + "/gestion.jsp");
             }
         }
     }
