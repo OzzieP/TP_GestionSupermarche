@@ -37,6 +37,8 @@ public class GestionServlet extends HttpServlet {
         if (article != null) {
             hm.put(article.getCodeBarre(), article);
         }
+
+        this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

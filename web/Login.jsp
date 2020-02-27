@@ -18,7 +18,7 @@
     </form>
 
     <div>
-        <a href="<c:url value="/GestionServlet"/>" class="btn btn-primary" role="button">Retour vers ticket de caisse</a>
+        <a href="<c:url value="/AccueilServlet"/>" class="btn btn-primary" role="button">Retour vers ticket de caisse</a>
     </div>
 
 </body>

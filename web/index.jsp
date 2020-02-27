@@ -13,12 +13,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Liste des articles disponibles</h1>
+            <div>
+                <h1>Liste des articles disponibles</h1>
+            </div>
 
-            <c:if test="${sessionScope.admin.admin}">
-                <a href="<c:url value="/GestionServlet"/>" class="btn btn-success" role="button">Ajouter un article</a>
-            </c:if>
-            <a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-info" role="button">Gestion des articles</a>
+            <div>
+                <c:if test="${sessionScope.admin.admin}">
+                    <a href="<c:url value="/GestionServlet"/>" class="btn btn-success" role="button">Ajouter un article</a>
+                    <a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-danger" role="button">Se déconnecter</a>
+                </c:if>
+                <c:if test="${!sessionScope.admin.admin}">
+                    <a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-info" role="button">Gestion des articles</a>
+                </c:if>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -105,11 +112,11 @@
                     </c:forEach>
                     <tr>
                         <th scope="row">Total TTC</th>
-                        <td colspan="2"><f:formatNumber value="${totalTTC}" type="currency" currencySymbol="€"/></td>
+                        <td colspan="2"><f:formatNumber value="${applicationScope['totalTTC']}" type="currency" currencySymbol="€"/></td>
                     </tr>
                     <tr>
                         <th scope="row">Total TVA</th>
-                        <td colspan="2"><f:formatNumber value="${totalTVA}" type="currency" currencySymbol="€"/></td>
+                        <td colspan="2"><f:formatNumber value="${applicationScope['totalTVA']}" type="currency" currencySymbol="€"/></td>
                     </tr>
                     </tbody>
                 </table>

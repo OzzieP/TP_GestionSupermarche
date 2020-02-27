@@ -58,9 +58,8 @@ public class AccueilServlet extends javax.servlet.http.HttpServlet {
             totalTVA += tva;
         }
 
-        request.setAttribute("totalTTC", totalTTC);
-        request.setAttribute("totalTVA", totalTVA);
-
+        this.getServletContext().setAttribute("totalTTC", totalTTC);
+        this.getServletContext().setAttribute("totalTVA", totalTVA);
         this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 

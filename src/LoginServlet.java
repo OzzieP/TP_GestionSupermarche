@@ -37,6 +37,9 @@ public class LoginServlet extends HttpServlet {
 
         if (session != null && session.getAttribute("admin") == null) {
             this.getServletContext().getRequestDispatcher("/Login.jsp").forward(request, response);
+        } else if (session != null && session.getAttribute("admin") != null) {
+            session.removeAttribute("admin");
+            this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
         }
