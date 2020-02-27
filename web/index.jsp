@@ -16,7 +16,7 @@
             <h1>Liste des articles disponibles</h1>
 
             <c:if test="${sessionScope.admin.admin}">
-                <a href="<c:url value="/GestionServlet"/>" class="btn btn-success" role="button">Ajouter un article</a>
+                <a href="<c:url value="/GestionServlet"/>"  class="btn btn-success" role="button">Ajouter un article</a>
             </c:if>
             <a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-info" role="button">Gestion des articles</a>
         </div>
@@ -24,11 +24,11 @@
     <div class="row">
         <div class="col-md-12">
             <div>
-                <form method="POST" action="AccueilServlet">
+                <form method="POST" action="AccueilServlet" class="form-inline">
                     <label for="addArticlePanier">Code barre : </label>
-                    <input type="number" id="addArticlePanier" name="addArticlePanier">
+                    <input  class="form-control" type="number" id="addArticlePanier" name="addArticlePanier">
 
-                    <input type="submit" name="btn" value="Ajouter au panier">
+                    <input  class="btn btn-primary "type="submit" name="btn" value="Ajouter au panier">
                 </form>
             </div>
 
