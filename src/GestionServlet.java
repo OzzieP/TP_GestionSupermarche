@@ -47,21 +47,20 @@ public class GestionServlet extends HttpServlet {
         if (btn.equals("Ajouter")) {
             request.setAttribute("btn", btn);
             this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
-        } else if (btn.equals("Supprimer")) {
+        } else if (btn.equals("Supprimer") || btn.equals("Modifier")) {
+            HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
             long codeBarre = Long.parseLong(request.getParameter("codeBarre"));
-            SupprimerArticle(codeBarre, btn, request);
-            this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
-        } else {
-            this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
+            Article selectedArticle = hm.get(codeBarre);
+
+            request.setAttribute("btn", btn);
+            request.setAttribute("selectedArticle", selectedArticle);
+
+            if (btn.equals("Supprimer")) {
+                hm.remove(codeBarre);
+                this.getServletContext().getRequestDispatcher("/AccueilServlet").forward(request, response);
+            } else {
+                this.getServletContext().getRequestDispatcher("/gestion.jsp").forward(request, response);
+            }
         }
-    }
-
-    private void SupprimerArticle(long codeBarre, String btn, HttpServletRequest request) {
-        HashMap<Long, Article> hm = (HashMap<Long, Article>) this.getServletContext().getAttribute("articles");
-        Article selectedArticle = hm.get(codeBarre);
-
-        request.setAttribute("btn", btn);
-        request.setAttribute("selectedArticle", selectedArticle);
-        hm.remove(codeBarre);
     }
 }

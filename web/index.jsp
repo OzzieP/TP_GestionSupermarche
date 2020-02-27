@@ -7,6 +7,7 @@
     <title>Gestion du supermarché</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/41494b58af.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@
                     <c:url value="GestionServlet" var="url">
                         <c:param name="btn" value="Ajouter"/>
                     </c:url>
-                    <a href="${url}" class="btn btn-success" role="button">Ajouter un article</a>
+                    <a href="${url}" class="btn btn-success" role="button"><i class="fas fa-plus-circle"></i> Ajouter un article</a>
                     <a style="float:right" href="<c:url value="/LoginServlet"/>" class="btn btn-danger" role="button">Se
                         déconnecter</a>
                 </c:if>
@@ -76,14 +77,14 @@
                                     <c:param name="codeBarre" value="${article.codeBarre}"/>
                                     <c:param name="btn" value="Modifier"/>
                                 </c:url>
-                                <a href="${url}" class="btn btn-primary" role="button">Modifier</a>
+                                <a href="${url}" class="btn btn-primary" role="button" data-toggle="tooltip" data-placement="right" title="Modifier l'article"><i class="fas fa-edit"></i></a>
                             </td>
                             <td>
                                 <c:url value="GestionServlet" var="url">
                                     <c:param name="codeBarre" value="${article.codeBarre}"/>
                                     <c:param name="btn" value="Supprimer"/>
                                 </c:url>
-                                <a href="${url}" class="btn btn-danger" role="button">Supprimer</a>
+                                <a href="${url}" class="btn btn-danger" role="button" data-toggle="tooltip" data-placement="right" title="Supprimer l'article"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </c:if>
                     </tr>
@@ -126,7 +127,7 @@
                                     <c:param name="codeBarre" value="${article.codeBarre}"/>
                                     <c:param name="btn" value="Retirer"/>
                                 </c:url>
-                                <a href="${url}" class="btn btn-danger" role="button">Retirer</a>
+                                <a href="${url}" class="btn btn-danger" role="button" data-toggle="tooltip" data-placement="right" title="Retirer du panier"><i class="fas fa-minus-circle"></i></a>
                             </td>
                         </tr>
                     </c:forEach>
